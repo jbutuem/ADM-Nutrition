@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Proposta · Website ADM Human Nutrition · TGT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#012169;        /* Navy — primário escuro */
+  --navy-deep:#011a52;
+  --blue:#00109E;        /* Azul vivo */
+  --chloro:#8BC400;      /* Chlorophyll — verde assinatura */
+  --chloro-lt:#A3D300;
+  --green:#00AD50;       /* verde tonal */
+  --honey:#FFAD00;       /* Honey */
+  --honey-2:#FCBD46;
+  --ripple:#426DA9;      /* Ripple */
+  --ripple-2:#6680C3;
+  --mist:#9BD3DD;        /* Mist */
+  --mist-2:#BBDDE6;
+  --terra:#DC582A;       /* Terracotta (gráfico) */
+  --terra-2:#EA733D;
+  --terra-text:#b8431b;  /* Terracotta p/ TEXTO em fundo claro (AA) */
+  --green-text:#08773a;  /* Verde p/ TEXTO em fundo claro (AA) */
+  --gray:#5b5c5f;        /* Cinza de apoio — AA em branco, #f7f9fd e Husk */
+  --ink:#16213d;
+  --paper:#ffffff;
+  --husk:#efe9dd;        /* Husk — creme quente (uso pontual) */
+  --line:rgba(1,33,105,.12);
+  --shadow:0 24px 60px -28px rgba(1,33,105,.45);
+  --shadow-sm:0 12px 30px -18px rgba(1,33,105,.4);
+  --maxw:1120px;
+  --leaf-grad:linear-gradient(135deg,var(--chloro-lt) 0%,var(--green) 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Source Sans 3",system-ui,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:"Zilla Slab",Georgia,serif;color:var(--navy);line-height:1.08;margin:0;font-weight:700;letter-spacing:-.01em}
+p{margin:0 0 1em}
+a{color:var(--blue);text-decoration:none}
+a:focus-visible,.btn-main:focus-visible{outline:3px solid var(--honey);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{font-family:"Source Sans 3";font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:12.5px;color:var(--green-text)}
+.eyebrow.on-dark{color:var(--chloro-lt)}
+.muted{color:var(--gray)}
+section{position:relative}
+
+/* ===== Leaf glyph ===== */
+.leaf-mark{display:inline-block;vertical-align:middle}
+.brandlock{display:inline-flex;align-items:center;gap:11px}
+.brandlock .adm{font-family:"Source Sans 3";font-weight:900;letter-spacing:-.02em;color:var(--navy);font-size:30px;line-height:1}
+.brandlock.on-dark .adm{color:#fff}
+.brandlock .leaf-mark{width:34px;height:34px}
+
+/* ===== Top utility bar ===== */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.topbar .who{font-size:13px;font-weight:700;color:var(--navy);letter-spacing:.02em}
+.topbar .who span{color:var(--gray);font-weight:600}
+.tgt-badge{font-family:"Source Sans 3";font-weight:900;color:#ED1C24;letter-spacing:.04em;font-size:18px}
+
+/* ===== HERO ===== */
+.hero{background:
+   radial-gradient(120% 90% at 88% -10%,rgba(0,173,80,.25),transparent 55%),
+   radial-gradient(90% 80% at -10% 110%,rgba(66,109,169,.35),transparent 60%),
+   linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 60%,#021541 100%);
+  color:#fff;padding:64px 0 0;overflow:hidden}
+.hero .wrap{position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{color:#fff;font-size:clamp(38px,5.4vw,64px);font-weight:700;margin:18px 0 16px}
+.hero h1 .accent{color:var(--chloro-lt)}
+.hero .lead{font-size:19px;color:#d7e0f3;max-width:34ch;margin-bottom:26px}
+.prep{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16)}
+.prep .lab{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mist);font-weight:700;margin-bottom:3px}
+.prep .val{font-size:15px;color:#fff;font-weight:600}
+.hero-tagline{position:absolute;right:28px;bottom:18px;z-index:2;font-family:"Zilla Slab";font-style:italic;font-weight:600;color:rgba(255,255,255,.5);font-size:14px}
+
+/* Leaf shape (panel) — curva-folha característica ADM */
+.leaf-panel{position:relative;border-radius:18px 120px 18px 18px;overflow:hidden}
+.device{
+  position:relative;border-radius:14px;background:#fff;box-shadow:var(--shadow);
+  overflow:hidden;border:1px solid rgba(255,255,255,.5)
+}
+.device .chrome{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#f4f6fb;border-bottom:1px solid #e6ebf4}
+.device .dot{width:9px;height:9px;border-radius:50%;background:#cdd6e6}
+.device .url{margin-left:10px;background:#fff;border:1px solid #e1e7f1;border-radius:7px;font-size:11.5px;color:var(--gray);padding:4px 12px;font-weight:600;flex:1;max-width:280px}
+.hero-device-wrap{position:relative}
+.hero-device-wrap::before{content:"";position:absolute;inset:-26px -26px auto auto;width:230px;height:230px;background:var(--leaf-grad);
+  border-radius:0 100% 100% 100%;opacity:.9;z-index:0;filter:blur(.2px)}
+.hero-device-wrap .device{position:relative;z-index:1}
+
+/* Mini-site render (reusable) */
+.ms{font-family:"Source Sans 3";font-size:12px;color:var(--ink);background:#fff}
+.ms-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #eef1f7}
+.ms-nav .lk{display:flex;gap:13px;color:var(--navy);font-weight:600;font-size:10.5px}
+.ms-nav .lk span:first-child{color:var(--green)}
+.ms-hero{position:relative;background:linear-gradient(150deg,var(--navy),#062a73);color:#fff;padding:26px 18px 30px;overflow:hidden}
+.ms-hero::after{content:"";position:absolute;right:-40px;top:-30px;width:160px;height:160px;background:var(--leaf-grad);border-radius:0 100% 100% 100%;opacity:.92}
+.ms-hero .eb{position:relative;z-index:2;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--chloro-lt);font-weight:700}
+.ms-hero h5{position:relative;z-index:2;font-family:"Zilla Slab";font-size:21px;color:#fff;margin:6px 0 8px;max-width:16ch}
+.ms-hero .btn{position:relative;z-index:2;display:inline-block;background:var(--chloro);color:var(--navy);font-weight:700;font-size:9.5px;padding:6px 12px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em}
+.ms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 16px}
+.ms-card{border:1px solid #eef1f7;border-radius:9px;padding:10px;background:#fff}
+.ms-card .ic{width:24px;height:24px;border-radius:6px;background:var(--leaf-grad);margin-bottom:7px}
+.ms-card b{display:block;font-size:10.5px;color:var(--navy);font-family:"Zilla Slab"}
+.ms-card small{font-size:8.5px;color:var(--gray);line-height:1.35;display:block}
+
+/* ===== generic section spacing ===== */
+.block{padding:84px 0}
+.block.tight{padding:60px 0}
+.sec-head{max-width:62ch}
+.sec-head h2{font-size:clamp(28px,3.6vw,42px);margin:10px 0 12px}
+.sec-head p{font-size:18px;color:var(--gray)}
+
+/* ===== Stats (concentric leaf rings) ===== */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.stat{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.ring{width:108px;height:108px;display:grid;place-items:center;border-radius:0 100% 100% 100%;
+  background:conic-gradient(from 220deg,var(--chloro),var(--green),var(--ripple),var(--navy));padding:5px}
+.ring .inner{width:100%;height:100%;border-radius:0 100% 100% 100%;background:#fff;display:grid;place-items:center}
+.ring .num{font-family:"Zilla Slab";font-weight:700;font-size:26px;color:var(--navy);line-height:1}
+.stat .cap{font-size:13.5px;color:var(--gray);font-weight:600;max-width:18ch}
+
+/* ===== Pillars ===== */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
+.pillar{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px 26px;overflow:hidden;transition:transform .35s,box-shadow .35s}
+.pillar:hover{transform:translateY(-5px);box-shadow:var(--shadow-sm)}
+.pillar .pn{position:absolute;top:18px;right:20px;font-family:"Zilla Slab";font-size:54px;color:rgba(1,33,105,.07);font-weight:700;line-height:1}
+.pillar .glyph{width:46px;height:46px;border-radius:0 100% 100% 100%;background:var(--leaf-grad);margin-bottom:16px}
+.pillar h3{font-size:21px;margin-bottom:8px}
+.pillar p{font-size:14.5px;color:var(--gray);margin:0}
+.pillar.alt .glyph{background:linear-gradient(135deg,var(--honey-2),var(--honey))}
+.pillar.alt2 .glyph{background:linear-gradient(135deg,var(--terra-2),var(--terra))}
+
+/* ===== Platform option blocks ===== */
+.opt{display:grid;grid-template-columns:.92fr 1.08fr;gap:46px;align-items:center}
+.opt.flip{grid-template-columns:1.08fr .92fr}
+.opt.flip .opt-copy{order:2}
+.optbadge{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+.optbadge.wp{background:var(--navy);color:#fff}
+.optbadge.wix{background:var(--mist-2);color:var(--navy)}
+.opt h3{font-size:30px;margin:16px 0 12px}
+.feat{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:11px}
+.feat li{display:flex;gap:11px;font-size:15px;align-items:flex-start}
+.feat li::before{content:"";flex:0 0 auto;width:18px;height:18px;margin-top:3px;border-radius:0 100% 100% 100%;background:var(--leaf-grad)}
+.opt.flip .feat li::before{background:linear-gradient(135deg,var(--ripple-2),var(--ripple))}
+
+/* ===== Comparison table ===== */
+.cmp{width:100%;border-collapse:separate;border-spacing:0;margin-top:40px;font-size:15px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.cmp th,.cmp td{padding:15px 18px;text-align:left;vertical-align:top}
+.cmp thead th{background:var(--navy);color:#fff;font-family:"Zilla Slab";font-size:16px;font-weight:600}
+.cmp thead th:first-child{background:var(--navy-deep)}
+.cmp tbody tr:nth-child(even){background:#f7f9fd}
+.cmp td:first-child{font-weight:700;color:var(--navy);width:30%}
+.cmp .tag{font-weight:700;font-size:12px;padding:3px 9px;border-radius:6px;display:inline-block;margin-right:6px}
+.tag.win{background:rgba(0,173,80,.14);color:#0a6a35}
+.tag.mid{background:rgba(255,173,0,.18);color:#7e5600}
+.tag.low{background:rgba(220,88,42,.14);color:#b23d18}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}
+.pc{border:1px solid var(--line);border-radius:14px;padding:24px;background:#fff}
+.pc h4{font-size:18px;margin-bottom:6px}
+.pc .grp{margin-top:14px}
+.pc .grp b{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.pc ul{margin:8px 0 0;padding-left:0;list-style:none;display:grid;gap:7px}
+.pc li{font-size:13.5px;color:var(--gray);padding-left:22px;position:relative}
+.pc li::before{position:absolute;left:0;top:0;font-weight:800}
+.pc li.p::before{content:"+";color:var(--green-text)}
+.pc li.c::before{content:"–";color:var(--terra-text)}
+
+/* ===== Recommendation ===== */
+.reco{background:linear-gradient(150deg,var(--navy),#06286c);color:#fff;border-radius:22px;padding:48px;position:relative;overflow:hidden;margin-top:46px}
+.reco::after{content:"";position:absolute;right:-60px;bottom:-60px;width:280px;height:280px;background:var(--leaf-grad);border-radius:0 100% 100% 100%;opacity:.16}
+.reco .eyebrow{color:var(--chloro-lt)}
+.reco h3{color:#fff;font-size:30px;margin:10px 0 18px;max-width:24ch}
+.reco .rg{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;position:relative;z-index:2}
+.reco ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.reco ul li{display:flex;gap:11px;font-size:15px;color:#dbe4f5}
+.reco ul li::before{content:"";flex:0 0 auto;width:16px;height:16px;margin-top:4px;border-radius:0 100% 100% 100%;background:var(--chloro)}
+.synthesis{border-left:4px solid var(--chloro);padding:6px 0 6px 22px;font-family:"Zilla Slab";font-style:italic;font-size:19px;color:#fff;line-height:1.4}
+.gov{margin-top:26px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:20px 22px;position:relative;z-index:2}
+.gov b{color:var(--honey-2)}
+.gov p{font-size:14px;color:#cdd8ee;margin:6px 0 0}
+
+/* ===== Mockup gallery ===== */
+.mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:42px}
+.mockcard .cap{margin-top:14px}
+.mockcard .cap b{font-family:"Zilla Slab";color:var(--navy);font-size:16px;display:block}
+.mockcard .cap small{color:var(--gray);font-size:13px}
+
+/* page: solution */
+.ms-sol{padding:16px}
+.ms-sol .crumb{font-size:9px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.ms-sol h5{font-family:"Zilla Slab";font-size:18px;color:var(--navy);margin:6px 0 4px}
+.ms-sol p{font-size:10px;color:var(--gray);margin:0 0 12px;line-height:1.4}
+.ms-prod{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.ms-prod .pr{border:1px solid #eef1f7;border-radius:8px;overflow:hidden}
+.ms-prod .pr .ph{height:40px;background:var(--leaf-grad)}
+.ms-prod .pr.b2 .ph{background:linear-gradient(135deg,var(--honey-2),var(--honey))}
+.ms-prod .pr.b3 .ph{background:linear-gradient(135deg,var(--ripple-2),var(--ripple))}
+.ms-prod .pr.b4 .ph{background:linear-gradient(135deg,var(--terra-2),var(--terra))}
+.ms-prod .pr .tx{padding:7px 8px}
+.ms-prod .pr b{font-size:9.5px;color:var(--navy);font-family:"Zilla Slab";display:block}
+.ms-prod .pr small{font-size:8px;color:var(--gray)}
+
+/* page: article */
+.ms-art{padding:0}
+.ms-art .cover{height:96px;background:linear-gradient(150deg,var(--navy),#0a3a8a);position:relative;overflow:hidden}
+.ms-art .cover::after{content:"";position:absolute;right:-30px;bottom:-40px;width:130px;height:130px;background:var(--leaf-grad);border-radius:0 100% 100% 100%;opacity:.9}
+.ms-art .cover .tagt{position:absolute;left:14px;top:12px;font-size:8px;background:var(--chloro);color:var(--navy);font-weight:800;padding:3px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em}
+.ms-art .body{padding:14px 16px}
+.ms-art .body h5{font-family:"Zilla Slab";font-size:16px;color:var(--navy);margin:0 0 6px;line-height:1.15}
+.ms-art .meta{font-size:8.5px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:9px}
+.ms-art .ln{height:6px;background:#eef1f7;border-radius:3px;margin:5px 0}
+.ms-art .ln.s{width:70%}
+.ms-art .chips{display:flex;gap:5px;margin-top:11px}
+.ms-art .chips span{font-size:8px;background:#eef3fb;color:var(--ripple);font-weight:700;padding:3px 8px;border-radius:99px}
+
+/* page: portfolio grid */
+.ms-port{padding:16px}
+.ms-port h5{font-family:"Zilla Slab";font-size:16px;color:var(--navy);margin:0 0 10px}
+.ms-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.ms-cats .ct{border:1px solid #eef1f7;border-radius:8px;padding:9px;text-align:center}
+.ms-cats .ct .d{width:18px;height:18px;border-radius:0 100% 100% 100%;margin:0 auto 6px;background:var(--leaf-grad)}
+.ms-cats .ct b{font-size:8.5px;color:var(--navy);display:block;line-height:1.2;font-family:"Zilla Slab"}
+
+/* ===== Maintenance / content ===== */
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.svccard{border:1px solid var(--line);border-radius:16px;padding:28px;background:#fff;position:relative;overflow:hidden}
+.svccard .hh{display:flex;align-items:center;gap:13px;margin-bottom:8px}
+.svccard .hh .g{width:40px;height:40px;flex:0 0 auto;border-radius:0 100% 100% 100%;background:var(--leaf-grad)}
+.svccard.b .hh .g{background:linear-gradient(135deg,var(--honey-2),var(--honey))}
+.svccard h3{font-size:20px}
+.svccard .hrs{font-size:13px;color:var(--green-text);font-weight:800;letter-spacing:.02em}
+.svccard.b .hrs{color:#7e5600}
+.svccard ul{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:9px}
+.svccard ul li{font-size:14px;color:var(--ink);padding-left:24px;position:relative}
+.svccard ul li::before{content:"";position:absolute;left:0;top:7px;width:11px;height:11px;border-radius:0 100% 100% 100%;background:var(--chloro)}
+.svccard.b ul li::before{background:var(--honey)}
+
+/* campaign flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;counter-reset:fl}
+.flow .step{position:relative;padding:26px 20px;background:#fff;border:1px solid var(--line);border-right:none}
+.flow .step:first-child{border-radius:14px 0 0 14px}
+.flow .step:last-child{border-radius:0 14px 14px 0;border-right:1px solid var(--line)}
+.flow .step .n{counter-increment:fl;font-family:"Zilla Slab";font-size:30px;color:var(--green-text);font-weight:700;line-height:1}
+.flow .step .n::before{content:"0" counter(fl)}
+.flow .step h4{font-size:16px;margin:8px 0 5px}
+.flow .step p{font-size:12.5px;color:var(--gray);margin:0}
+.flow .step::after{content:"›";position:absolute;right:-9px;top:50%;transform:translateY(-50%);z-index:3;color:var(--navy);font-weight:800;font-size:18px;background:#fff;width:18px;text-align:center}
+.flow .step:last-child::after{display:none}
+
+/* ===== Investment ===== */
+.inv-band{background:var(--husk)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;align-items:stretch}
+.price{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.price .kind{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gray)}
+.price h3{font-size:20px;margin:8px 0 4px}
+.price .amt{font-family:"Zilla Slab";font-weight:700;color:var(--navy);font-size:34px;line-height:1.05;margin:14px 0 2px}
+.price .per{font-size:13px;color:var(--gray);font-weight:600;margin-bottom:14px}
+.price ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px;flex:1}
+.price li{font-size:13.5px;color:var(--ink);padding-left:22px;position:relative}
+.price li::before{content:"";position:absolute;left:0;top:6px;width:11px;height:11px;border-radius:0 100% 100% 100%;background:var(--chloro)}
+.price.feature{background:linear-gradient(160deg,var(--navy),#06286c);color:#fff;border:none;box-shadow:var(--shadow)}
+.price.feature .kind{color:var(--chloro-lt)}
+.price.feature h3{color:#fff}
+.price.feature .amt{color:#fff}
+.price.feature .per{color:var(--mist)}
+.price.feature li{color:#e3eaf8}
+.price.feature li::before{background:var(--honey)}
+.price .ribbon{position:absolute;top:16px;right:-34px;transform:rotate(45deg);background:var(--honey);color:var(--navy);font-weight:900;font-size:10.5px;letter-spacing:.08em;padding:5px 40px;text-transform:uppercase}
+.lead-notes{display:flex;gap:30px;flex-wrap:wrap;margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+.lead-notes .ni .l{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--green-text);font-weight:800}
+.lead-notes .ni .v{font-size:16px;color:var(--navy);font-weight:700}
+.lead-notes .ni .v small{display:block;font-size:12px;color:var(--gray);font-weight:600}
+
+/* ===== Timeline / next ===== */
+.tl{margin-top:40px;display:grid;gap:0}
+.tl .row{display:grid;grid-template-columns:130px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--line);align-items:start}
+.tl .row:last-child{border-bottom:1px solid var(--line)}
+.tl .wk{font-family:"Zilla Slab";font-weight:700;color:var(--green-text);font-size:15px}
+.tl .row h4{font-size:17px;margin-bottom:3px}
+.tl .row p{font-size:14px;color:var(--gray);margin:0}
+
+/* ===== Footer / CTA ===== */
+.cta{background:linear-gradient(160deg,var(--navy),#021643);color:#fff;text-align:center;padding:80px 0;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;left:50%;top:-120px;transform:translateX(-50%);width:360px;height:360px;background:var(--leaf-grad);border-radius:0 100% 100% 100%;opacity:.12}
+.cta h2{color:#fff;font-size:clamp(28px,4vw,44px);position:relative;z-index:2;max-width:20ch;margin:0 auto 14px}
+.cta p{color:#cdd8ee;position:relative;z-index:2;max-width:46ch;margin:0 auto 28px}
+.btn-main{display:inline-block;background:var(--chloro);color:var(--navy);font-weight:800;padding:15px 34px;border-radius:11px;font-size:15px;letter-spacing:.02em;position:relative;z-index:2;transition:transform .25s,background .25s}
+.btn-main:hover{transform:translateY(-2px);background:var(--chloro-lt)}
+footer{background:#020f30;color:#90a2c8;padding:40px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+footer .brandlock .adm{color:#fff;font-size:24px}
+footer .brandlock .leaf-mark{width:28px;height:28px}
+footer .sig b{color:#fff}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:880px){
+  .hero-grid,.opt,.opt.flip{grid-template-columns:1fr;gap:34px}
+  .opt.flip .opt-copy{order:0}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .pillars,.proscons,.svc,.mock-grid,.price-grid,.rg{grid-template-columns:1fr!important}
+  .reco .rg{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .flow .step{border-right:1px solid var(--line)!important;border-radius:0!important}
+  .flow .step::after{display:none}
+  .hero-tagline{display:none}
+  .reco{padding:32px}
+}
+@media (max-width:520px){
+  .ms-grid,.ms-cats{grid-template-columns:1fr 1fr}
+  .flow,.price-grid{grid-template-columns:1fr}
+  .tl .row{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.pillar:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<!-- leaf glyph definition (reusable) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A3D300"/><stop offset="1" stop-color="#00AD50"/>
+    </linearGradient>
+    <symbol id="leaf" viewBox="0 0 100 100">
+      <path d="M50 6 C80 16 94 42 86 68 C79 90 30 96 13 77 C2 63 6 28 50 6 Z" fill="url(#lg)"/>
+      <path d="M28 72 C40 52 58 40 80 38" fill="none" stroke="#012169" stroke-opacity=".55" stroke-width="6" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brandlock"><svg class="leaf-mark"><use href="#leaf"/></svg><span class="adm">ADM</span></span>
+    <div class="who">Proposta · Website ADM Human Nutrition&nbsp;&nbsp;<span>|&nbsp; por <span class="tgt-badge" style="font-size:13px">TGT</span></span></div>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow on-dark">Proposta técnica e comercial · TGT</div>
+        <h1>Um site <span class="accent">vivo</span> para a ADM Human Nutrition.</h1>
+        <p class="lead">Uma plataforma de conteúdo B2B para expor tecnologias, ingredientes e artigos com dinamismo e frequência — desenhada, ativada e mantida de ponta a ponta.</p>
+        <div class="prep">
+          <div><div class="lab">Preparado para</div><div class="val">ADM Human Nutrition</div></div>
+          <div><div class="lab">Interface TGT</div><div class="val">Alany</div></div>
+          <div><div class="lab">Validade</div><div class="val">30 dias</div></div>
+        </div>
+      </div>
+      <div class="hero-device-wrap reveal">
+        <div class="device">
+          <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">adm.com/br/nutricao-humana</span></div>
+          <div class="ms">
+            <div class="ms-nav">
+              <span class="brandlock"><svg class="leaf-mark" style="width:18px;height:18px"><use href="#leaf"/></svg><span class="adm" style="font-size:14px">ADM</span></span>
+              <div class="lk"><span>Soluções</span><span>Tecnologias</span><span>Mercados</span><span>Insights</span></div>
+            </div>
+            <div class="ms-hero">
+              <div class="eb">Nutrição Humana</div>
+              <h5>Onde a natureza encontra a inovação</h5>
+              <span class="btn">Explorar portfólio</span>
+            </div>
+            <div class="ms-grid">
+              <div class="ms-card"><div class="ic"></div><b>Proteínas Vegetais</b><small>Soja, ervilha, texturizados</small></div>
+              <div class="ms-card"><div class="ic" style="background:linear-gradient(135deg,#FCBD46,#FFAD00)"></div><b>Adoçantes</b><small>SweetRight™ · Fibersol®</small></div>
+              <div class="ms-card"><div class="ic" style="background:linear-gradient(135deg,#6680C3,#426DA9)"></div><b>Aromas &amp; Sabor</b><small>Botânicos, cítricos, lácteos</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-tagline">Unlocking Nature. Enriching Life.</div>
+</section>
+
+<!-- ===================== CONTEXTO ===================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">O desafio</div>
+      <h2>Desafios complexos pedem uma presença digital à altura da ADM.</h2>
+      <p>A ADM Human Nutrition conecta ciência, inovação e escala para transformar ingredientes naturais em soluções de nutrição. O site precisa traduzir essa profundidade técnica em uma vitrine viva — atualizada com frequência, fácil de navegar pelo cliente B2B e construída para evoluir como plataforma de conteúdo e geração de leads.</p>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="ring"><div class="inner"><span class="num">1902</span></div></div><div class="cap">Ano de fundação da ADM</div></div>
+      <div class="stat reveal"><div class="ring"><div class="inner"><span class="num">68</span></div></div><div class="cap">Centros de inovação no mundo</div></div>
+      <div class="stat reveal"><div class="ring"><div class="inner"><span class="num">180</span></div></div><div class="cap">Países atendidos</div></div>
+      <div class="stat reveal"><div class="ring"><div class="inner"><span class="num">100%</span></div></div><div class="cap">Gestão técnica e de conteúdo pela TGT</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PILARES ===================== -->
+<section class="block tight" style="background:#f7f9fd;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">A proposta em três frentes</div>
+      <h2>Construir, manter e alimentar.</h2>
+      <p>Um escopo integrado que entrega o site no ar e o mantém relevante mês a mês.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal"><div class="pn">1</div><div class="glyph"></div><h3>Criação &amp; ativação</h3><p>Desenvolvimento do website em ambiente UAT TGT, com estrutura modular, identidade ADM e recursos prontos para escalar. Entrega da estrutura em 30 dias.</p></div>
+      <div class="pillar alt reveal"><div class="pn">2</div><div class="glyph"></div><h3>Manutenção técnica &amp; de conteúdo</h3><p>Atualizações, plugins, funcionalidades, segurança e backups — somados à inserção contínua de banners, textos, artigos e novas páginas.</p></div>
+      <div class="pillar alt2 reveal"><div class="pn">3</div><div class="glyph"></div><h3>Criação de conteúdo &amp; campanhas</h3><p>A partir de um briefing: criação de tema, artigo e todos os desdobramentos (e-mail mkt, social media) com ativação no site e SEO.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OPÇÃO A: WORDPRESS ===================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:40px">
+      <div class="eyebrow">Caminhos de plataforma</div>
+      <h2>Duas plataformas no radar. Uma recomendação clara.</h2>
+      <p>Avaliamos as duas rotas mais sólidas do mercado para o perfil da ADM — e dizemos exatamente onde cada uma brilha.</p>
+    </div>
+
+    <div class="opt reveal">
+      <div class="opt-copy">
+        <span class="optbadge wp"><svg class="leaf-mark" style="width:16px;height:16px"><use href="#leaf"/></svg> Opção A · WordPress</span>
+        <h3>A plataforma de conteúdo mais robusta para o B2B técnico.</h3>
+        <p class="muted">Desenvolvimento em ambiente UAT da TGT, com tema-base controlado e arquitetura modular pensada para crescer por solução, mercado e aplicação.</p>
+        <ul class="feat">
+          <li><b>Estrutura modular:</b>&nbsp;blocos reutilizáveis para páginas de solução, mercado, aplicação e landing pages de campanha.</li>
+          <li><b>Controle total de SEO &amp; arquitetura:</b>&nbsp;URLs, metadados, schema, hierarquia de conteúdo e blog técnico de alta frequência.</li>
+          <li><b>Biblioteca de materiais:</b>&nbsp;fichas técnicas, downloads e catálogo de ingredientes organizados e pesquisáveis.</li>
+          <li><b>Integrações abertas:</b>&nbsp;CRM, GA4/GTM, Search Console e automação de marketing.</li>
+          <li><b>Liberdade de customização:</b>&nbsp;sem amarras de plataforma; o site evolui conforme a estratégia da ADM.</li>
+        </ul>
+      </div>
+      <div class="hero-device-wrap reveal">
+        <div class="device">
+          <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">adm.com/.../solucoes</span></div>
+          <div class="ms ms-sol">
+            <div class="crumb">Soluções › Proteínas Vegetais</div>
+            <h5>Plant-Based Proteins</h5>
+            <p>Portfólio completo para criar produtos com proteína vegetal de sabor e textura autênticos.</p>
+            <div class="ms-prod">
+              <div class="pr"><div class="ph"></div><div class="tx"><b>Soy Protein Isolate</b><small>Alta pureza · solubilidade</small></div></div>
+              <div class="pr b2"><div class="ph"></div><div class="tx"><b>Pea Protein</b><small>Clean-label · versátil</small></div></div>
+              <div class="pr b3"><div class="ph"></div><div class="tx"><b>Textured Soy Protein</b><small>Textura de carne</small></div></div>
+              <div class="pr b4"><div class="ph"></div><div class="tx"><b>Soy Crisps</b><small>Crocância proteica</small></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OPÇÃO B: WIX STUDIO ===================== -->
+<section class="block tight" style="background:#f7f9fd;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="opt flip reveal">
+      <div class="opt-copy">
+        <span class="optbadge wix">Opção B · Wix Studio</span>
+        <h3>Moderno, ágil e ótimo para uma operação enxuta.</h3>
+        <p class="muted">A plataforma profissional da Wix, com infraestrutura em nuvem de alta disponibilidade (Google Cloud), editor visual avançado e publicação rápida.</p>
+        <ul class="feat">
+          <li><b>Editor visual poderoso:</b>&nbsp;design responsivo com CSS-grid, breakpoints e animações sem código.</li>
+          <li><b>Entrega veloz:</b>&nbsp;do conceito ao ar em prazos curtos, ideal para sites institucionais enxutos.</li>
+          <li><b>Edição fácil pelo cliente:</b>&nbsp;a equipe ADM ajusta textos e imagens com baixa curva de aprendizado.</li>
+          <li><b>Hospedagem e segurança gerenciadas:</b>&nbsp;SSL, CDN e manutenção de plataforma já inclusos.</li>
+          <li><b>Baixa manutenção técnica:</b>&nbsp;menos dependência de atualizações e plugins do que o WordPress.</li>
+        </ul>
+      </div>
+      <div class="hero-device-wrap reveal">
+        <div class="device">
+          <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">adm.com.br · institucional</span></div>
+          <div class="ms">
+            <div class="ms-nav">
+              <span class="brandlock"><svg class="leaf-mark" style="width:18px;height:18px"><use href="#leaf"/></svg><span class="adm" style="font-size:14px">ADM</span></span>
+              <div class="lk"><span>Sobre</span><span>Soluções</span><span>Contato</span></div>
+            </div>
+            <div class="ms-hero" style="background:linear-gradient(150deg,#426DA9,#012169)">
+              <div class="eb">Institucional</div>
+              <h5>Desvendar o poder da natureza</h5>
+              <span class="btn" style="background:#fff">Fale conosco</span>
+            </div>
+            <div class="ms-grid" style="grid-template-columns:1fr 1fr">
+              <div class="ms-card"><div class="ic" style="background:linear-gradient(135deg,#BBDDE6,#9BD3DD)"></div><b>Quem somos</b><small>Sede América Latina</small></div>
+              <div class="ms-card"><div class="ic"></div><b>Inovação</b><small>Centros &amp; plantas</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPARATIVO ===================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Lado a lado</div>
+      <h2>Prós e contras, sem rodeios.</h2>
+      <p>Onde cada plataforma entrega mais valor para o perfil corporativo e técnico da ADM Human Nutrition.</p>
+    </div>
+
+    <table class="cmp reveal">
+      <thead><tr><th>Critério</th><th>WordPress</th><th>Wix Studio</th></tr></thead>
+      <tbody>
+        <tr><td>Controle &amp; customização</td><td><span class="tag win">Alto</span>Liberdade total de código e tema</td><td><span class="tag mid">Médio</span>Limitado ao ecossistema Wix</td></tr>
+        <tr><td>SEO &amp; arquitetura de conteúdo</td><td><span class="tag win">Superior</span>Controle fino de URLs, schema, hierarquia</td><td><span class="tag mid">Bom</span>Cobre o essencial, menos granular</td></tr>
+        <tr><td>Blog técnico &amp; alta frequência</td><td><span class="tag win">Ideal</span>Feito para volume de artigos</td><td><span class="tag mid">Ok</span>Adequado a volume moderado</td></tr>
+        <tr><td>Landing pages &amp; formulários</td><td><span class="tag win">Ilimitado</span>Modular e integrável</td><td><span class="tag mid">Bom</span>Rápido, porém padronizado</td></tr>
+        <tr><td>Integrações (CRM / Analytics / automação)</td><td><span class="tag win">Abertas</span>GA4, GTM, CRM, automação</td><td><span class="tag mid">Médias</span>Conectores nativos selecionados</td></tr>
+        <tr><td>Escalabilidade &amp; longevidade</td><td><span class="tag win">Plataforma</span>Cresce como ecossistema</td><td><span class="tag mid">Site</span>Excelente em escopo enxuto</td></tr>
+        <tr><td>Velocidade de entrega</td><td><span class="tag mid">Média</span>Estrutura em ~30 dias</td><td><span class="tag win">Alta</span>Publicação acelerada</td></tr>
+        <tr><td>Edição autônoma pelo cliente</td><td><span class="tag mid">Média</span>Curva moderada</td><td><span class="tag win">Fácil</span>Editor visual amigável</td></tr>
+        <tr><td>Manutenção técnica exigida</td><td><span class="tag mid">Ativa</span>Updates, plugins, segurança</td><td><span class="tag win">Baixa</span>Plataforma gerenciada</td></tr>
+        <tr><td>Adequação ao B2B técnico</td><td><span class="tag win">Ótima</span>Profundidade e governança</td><td><span class="tag mid">Boa</span>Melhor em institucional</td></tr>
+      </tbody>
+    </table>
+
+    <div class="proscons">
+      <div class="pc reveal">
+        <h4><span style="color:var(--navy)">WordPress</span></h4>
+        <div class="grp"><b style="color:var(--green)">Prós</b>
+          <ul>
+            <li class="p">Plataforma de conteúdo escalável e de vida longa</li>
+            <li class="p">Controle total de SEO e arquitetura por solução/mercado/aplicação</li>
+            <li class="p">Blog, landing pages, formulários e biblioteca de materiais sem limite</li>
+            <li class="p">Integrações abertas com CRM, analytics e automação</li>
+          </ul>
+        </div>
+        <div class="grp"><b style="color:var(--terra)">Pontos de atenção</b>
+          <ul>
+            <li class="c">Exige governança: tema controlado, poucos plugins, hospedagem gerenciada</li>
+            <li class="c">Manutenção técnica ativa (updates mensais, backups, segurança)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pc reveal">
+        <h4><span style="color:var(--navy)">Wix Studio</span></h4>
+        <div class="grp"><b style="color:var(--green)">Prós</b>
+          <ul>
+            <li class="p">Moderno e ágil — entrega rápida</li>
+            <li class="p">Edição autônoma e intuitiva pela equipe ADM</li>
+            <li class="p">Hospedagem, SSL e manutenção de plataforma inclusos</li>
+            <li class="p">Baixa manutenção técnica</li>
+          </ul>
+        </div>
+        <div class="grp"><b style="color:var(--terra)">Pontos de atenção</b>
+          <ul>
+            <li class="c">Menor controle sobre SEO técnico e arquitetura de conteúdo</li>
+            <li class="c">Customização e integrações limitadas ao ecossistema Wix</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECOMENDAÇÃO -->
+    <div class="reco reveal">
+      <div class="eyebrow on-dark">Recomendação principal</div>
+      <h3>Para a ADM Human Nutrition, recomendamos WordPress.</h3>
+      <div class="rg">
+        <ul>
+          <li>Mais adequado a um site B2B técnico e escalável, de vida longa.</li>
+          <li>Maior controle sobre SEO, arquitetura de conteúdo, blog e páginas por solução, mercado e aplicação.</li>
+          <li>Landing pages, formulários, biblioteca de materiais e integrações com CRM, analytics e automação.</li>
+          <li>Escolha mais defensável para um cliente corporativo que precisa evoluir como plataforma de conteúdo e geração de leads.</li>
+        </ul>
+        <div>
+          <div class="synthesis">“Recomendamos WordPress por ser uma plataforma mais robusta para a presença B2B de longo prazo. O Wix Studio seria uma excelente alternativa para um site mais enxuto e rápido — mas, considerando o perfil técnico e corporativo da ADM, o WordPress oferece mais flexibilidade e escala.”</div>
+        </div>
+      </div>
+      <div class="gov">
+        <b>Governança que faz o WordPress brilhar:</b>
+        <p>tema/base bem controlado, poucos plugins, hospedagem gerenciada, backups, segurança, atualizações mensais, GA4 / GTM / Search Console e permissões de acesso bem definidas. O Wix Studio não é amador — é moderno e ágil; para o escopo da ADM, porém, o WordPress é a escolha mais estratégica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MOCKUPS ===================== -->
+<section class="block" style="background:linear-gradient(180deg,#fff,#f4f7fc)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Simulação de páginas · WordPress</div>
+      <h2>Como o site da ADM ganha vida.</h2>
+      <p>Tecnologias, plataformas e artigos expostos com dinamismo e frequência — construídos sobre a identidade visual e o portfólio real da ADM Human Nutrition.</p>
+    </div>
+
+    <div class="mock-grid">
+      <!-- Artigo / Insight -->
+      <div class="mockcard reveal">
+        <div class="device">
+          <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">adm.com/.../insights/reducao-acucar</span></div>
+          <div class="ms ms-art">
+            <div class="cover"><span class="tagt">Insight técnico</span></div>
+            <div class="body">
+              <h5>Redução de açúcar sem abrir mão do sabor: o papel do SweetRight™ Stevia</h5>
+              <div class="meta">Tecnologias de adoçamento · 6 min de leitura</div>
+              <div class="ln"></div><div class="ln"></div><div class="ln s"></div>
+              <div class="chips"><span>SweetRight™</span><span>Fibersol®</span><span>Clean-label</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="cap"><b>Página de Insight / Artigo</b><small>Blog técnico de alta frequência, com SEO, tags e materiais relacionados.</small></div>
+      </div>
+
+      <!-- Portfólio / biblioteca -->
+      <div class="mockcard reveal">
+        <div class="device">
+          <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">adm.com/.../tecnologias</span></div>
+          <div class="ms ms-port">
+            <h5>Plataformas &amp; tecnologias</h5>
+            <div class="ms-cats">
+              <div class="ct"><div class="d"></div><b>Proteínas Vegetais</b></div>
+              <div class="ct"><div class="d" style="background:linear-gradient(135deg,#FCBD46,#FFAD00)"></div><b>Adoçamento</b></div>
+              <div class="ct"><div class="d" style="background:linear-gradient(135deg,#6680C3,#426DA9)"></div><b>Aromas &amp; Sabor</b></div>
+              <div class="ct"><div class="d" style="background:linear-gradient(135deg,#EA733D,#DC582A)"></div><b>Modificadores de Sabor</b></div>
+              <div class="ct"><div class="d" style="background:linear-gradient(135deg,#BBDDE6,#9BD3DD)"></div><b>Cores da Natureza</b></div>
+              <div class="ct"><div class="d"></div><b>Health &amp; Wellness</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="cap"><b>Biblioteca de tecnologias</b><small>Portfólio navegável: SaltTrim®, SavorCrave™, corantes naturais, probióticos e mais.</small></div>
+      </div>
+
+      <!-- Aplicação / case de produto -->
+      <div class="mockcard reveal">
+        <div class="device">
+          <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">adm.com/.../aplicacoes/bebidas</span></div>
+          <div class="ms ms-sol">
+            <div class="crumb">Aplicações › Bebidas funcionais</div>
+            <h5>Da ciência à prateleira</h5>
+            <p>Casos de aplicação que mostram o portfólio ADM em produtos reais.</p>
+            <div class="ms-prod">
+              <div class="pr"><div class="ph"></div><div class="tx"><b>Endless Me</b><small>Colágeno + Fibersol®</small></div></div>
+              <div class="pr b2"><div class="ph"></div><div class="tx"><b>HydroFIT</b><small>Água de coco + DE111®</small></div></div>
+              <div class="pr b3"><div class="ph"></div><div class="tx"><b>Amplitude</b><small>Mate · zero álcool</small></div></div>
+              <div class="pr b4"><div class="ph"></div><div class="tx"><b>K-Bites Protein</b><small>Snack proteico</small></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="cap"><b>Página de aplicação</b><small>Conecta tecnologias a produtos finais — exatamente como no caderno técnico ADM.</small></div>
+      </div>
+
+      <!-- Landing de campanha -->
+      <div class="mockcard reveal">
+        <div class="device">
+          <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">adm.com/.../campanha/proteina-vegetal</span></div>
+          <div class="ms">
+            <div class="ms-hero" style="padding:30px 18px 26px">
+              <div class="eb">Landing de campanha</div>
+              <h5>Construa um bocado melhor com proteína vegetal</h5>
+              <span class="btn">Baixar ficha técnica</span>
+            </div>
+            <div style="padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div class="ms-card"><div class="ic"></div><b>Material rico</b><small>E-book + ficha técnica</small></div>
+              <div class="ms-card"><div class="ic" style="background:linear-gradient(135deg,#FCBD46,#FFAD00)"></div><b>Formulário</b><small>Captura integrada ao CRM</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="cap"><b>Landing page de campanha</b><small>Geração de leads com formulário, material rico e SEO ativados.</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MANUTENÇÃO ===================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Manutenção mensal</div>
+      <h2>Um site que se mantém no ar — e relevante.</h2>
+      <p>Cuidado técnico e de conteúdo em ritmo mensal, para que o objetivo central — dinamismo e frequência — não dependa de esforços pontuais.</p>
+    </div>
+    <div class="svc">
+      <div class="svccard reveal">
+        <div class="hh"><div class="g"></div><div><h3>Manutenção técnica</h3><span class="hrs">≈ 12 horas / mês</span></div></div>
+        <p class="muted" style="font-size:14px">A camada que mantém o WordPress seguro, rápido e atualizado.</p>
+        <ul>
+          <li>Atualizações de core, tema e plugins</li>
+          <li>Gestão de funcionalidades e correções</li>
+          <li>Segurança, monitoramento e backups</li>
+          <li>Performance e disponibilidade</li>
+        </ul>
+      </div>
+      <div class="svccard b reveal">
+        <div class="hh"><div class="g"></div><div><h3>Manutenção de conteúdo</h3><span class="hrs">≈ 10 horas / mês</span></div></div>
+        <p class="muted" style="font-size:14px">A camada que mantém o site vivo e alinhado às campanhas.</p>
+        <ul>
+          <li>Troca de banners e destaques</li>
+          <li>Inserção e revisão de textos</li>
+          <li>Publicação de novos artigos</li>
+          <li>Criação de novas páginas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CRIAÇÃO DE CONTEÚDO ===================== -->
+<section class="block tight" style="background:#f7f9fd;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Criação de conteúdo &amp; ecossistema de campanha</div>
+      <h2>Do briefing ao ar, com tudo conectado.</h2>
+      <p>Para cada campanha, desenvolvemos o ecossistema completo a partir de um briefing — e ativamos no site com SEO.</p>
+    </div>
+    <div class="flow">
+      <div class="step reveal"><div class="n"></div><h4>Tema</h4><p>Criação do tema e do ângulo editorial a partir do briefing da ADM.</p></div>
+      <div class="step reveal"><div class="n"></div><h4>Artigo</h4><p>Produção do artigo técnico-comercial, no tom B2B da ADM.</p></div>
+      <div class="step reveal"><div class="n"></div><h4>Desdobramentos</h4><p>E-mail marketing, social media e peças derivadas do mesmo conceito.</p></div>
+      <div class="step reveal"><div class="n"></div><h4>Ativação + SEO</h4><p>Publicação no site, otimização e medição de resultados.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INVESTIMENTO ===================== -->
+<section class="block inv-band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Investimento</div>
+      <h2>Transparente, modular e pronto para começar.</h2>
+      <p>Um valor único de projeto e instalação, mais duas opções de operação mensal — escolha conforme o ritmo de conteúdo desejado.</p>
+    </div>
+
+    <div class="price-grid">
+      <div class="price reveal">
+        <span class="kind">Etapa 1 · Único</span>
+        <h3>Projeto &amp; instalação</h3>
+        <div class="amt">R$ 17.885,00</div>
+        <div class="per">pagamento único · estrutura completa</div>
+        <ul>
+          <li>Desenvolvimento em ambiente UAT TGT</li>
+          <li>Estrutura modular em WordPress</li>
+          <li>Identidade visual ADM aplicada</li>
+          <li>Recursos e integrações base</li>
+          <li>Publicação e go-live</li>
+        </ul>
+      </div>
+
+      <div class="price reveal">
+        <span class="kind">Etapa 2 · Mensal</span>
+        <h3>Manutenção do site</h3>
+        <div class="amt">R$ 2.140,00</div>
+        <div class="per">por mês · técnica + conteúdo</div>
+        <ul>
+          <li>Manutenção técnica (≈12h/mês)</li>
+          <li>Manutenção de conteúdo (≈10h/mês)</li>
+          <li>Atualizações, plugins e segurança</li>
+          <li>Banners, textos, artigos e páginas</li>
+        </ul>
+      </div>
+
+      <div class="price feature reveal">
+        <span class="ribbon">Recomendado</span>
+        <span class="kind">Etapa 2 · Pacote completo</span>
+        <h3>Operação 360°</h3>
+        <div class="amt">R$ 4.690,00</div>
+        <div class="per">por mês · tudo incluído</div>
+        <ul>
+          <li>Toda a manutenção técnica</li>
+          <li>Toda a manutenção de conteúdo</li>
+          <li>Criação de conteúdo &amp; artigos</li>
+          <li>Ecossistema de campanha (e-mail, social)</li>
+          <li>Ativação no site com SEO</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lead-notes reveal">
+      <div class="ni"><div class="l">Lead time · estrutura</div><div class="v">30 dias</div></div>
+      <div class="ni"><div class="l">Lead time · conteúdo</div><div class="v">A definir<small>conforme quantidade e datas de liberação pela ADM</small></div></div>
+      <div class="ni"><div class="l">Plataforma recomendada</div><div class="v">WordPress<small>governança gerenciada pela TGT</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CRONOGRAMA ===================== -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Como começamos</div>
+      <h2>Da aprovação ao go-live em 30 dias.</h2>
+      <p>Um caminho claro para a estrutura no ar; o conteúdo evolui em paralelo, conforme a liberação da ADM.</p>
+    </div>
+    <div class="tl">
+      <div class="row reveal"><div class="wk">Semana 1</div><div><h4>Kickoff &amp; arquitetura</h4><p>Briefing, mapa do site, definição de módulos e padrões de governança no ambiente UAT TGT.</p></div></div>
+      <div class="row reveal"><div class="wk">Semanas 2–3</div><div><h4>Desenvolvimento &amp; design</h4><p>Construção dos módulos, aplicação da identidade ADM, páginas de solução, tecnologia e insights.</p></div></div>
+      <div class="row reveal"><div class="wk">Semana 4</div><div><h4>Integrações &amp; QA</h4><p>GA4/GTM, Search Console, CRM e automação; testes, ajustes finos e validação de conteúdo inicial.</p></div></div>
+      <div class="row reveal"><div class="wk">Go-live</div><div><h4>Publicação &amp; operação</h4><p>Site no ar e início da manutenção mensal — técnica, conteúdo e campanhas — conforme o pacote escolhido.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Vamos colocar a ADM Human Nutrition no ar.</h2>
+    <p>Aprovando esta proposta, iniciamos o kickoff e entregamos a estrutura em 30 dias — com a TGT cuidando de tudo, de ponta a ponta.</p>
+    <a class="btn-main" href="#">Aprovar e iniciar o projeto</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="brandlock on-dark"><svg class="leaf-mark"><use href="#leaf"/></svg><span class="adm">ADM</span></span>
+    <div class="sig">
+      Proposta preparada pela <b>TGT</b> · A Agência Além do Marketing &nbsp;|&nbsp; Interface: <b>Alany</b> &nbsp;|&nbsp; Junho de 2026
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+})();
+</script>
+</body>
+</html>
