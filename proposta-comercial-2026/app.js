@@ -1,14 +1,14 @@
-/* Commercial data remains provisional until the owner validates the final proposal. */
+/* Commercial values and billing schedule approved by the owner on 2026-10-29. */
 const proposal = Object.freeze({
-  status: 'proposal-for-alignment',
-  base: { hours: 65, price: 8690, general: 50, video: 15, splitConfirmed: false },
-  expanded: { hours: 100, price: null, general: 80, video: 20, confirmed: false },
+  status: 'client-ready',
+  base: { hours: 65, price: 8690, general: 50, video: 15, splitConfirmed: true },
+  expanded: { hours: 100, price: 13350, general: 80, video: 20, confirmed: true },
   additional2027: { general: 108, video: 152 },
   contact: 'j.butuem@gmail.com'
 });
 const formatBR = new Intl.NumberFormat('pt-BR');
 for (const key of ['base', 'expanded']) {
-  const values = {Hours: proposal[key].hours, Price: proposal[key].price === null ? "A confirmar" : formatBR.format(proposal[key].price), General: `${proposal[key].general}h`, Video: `${proposal[key].video}h`};
+  const values = {Hours: proposal[key].hours, Price: formatBR.format(proposal[key].price), General: `${proposal[key].general}h`, Video: `${proposal[key].video}h`};
   for (const [field, value] of Object.entries(values)) {
     const node = document.querySelector(`[data-value="${key}${field}"]`);
     if (node) node.textContent = value;
