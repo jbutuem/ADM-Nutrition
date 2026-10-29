@@ -26,3 +26,14 @@ h3{font-weight:600;letter-spacing:-.04em}
 @media(max-width:850px){.hero-stamp{display:none}.hero h1{font-size:9vw}.plan-top{flex-wrap:wrap}.price-pending strong{font-size:30px}}
 @media(max-width:700px){.hero h1{font-size:clamp(44px,10.5vw,74px);line-height:1.05;letter-spacing:-.06em}.hero{min-height:0}h2{font-size:clamp(36px,9.7vw,47px);line-height:1.1}.scope-grid h3{font-size:21px}.closing h2{font-size:clamp(33px,8.7vw,55px);line-height:1.13}.draft{font-size:8px;padding:9px 16px}.price-pending strong{font-size:34px}.hero-bottom p{font-size:11px}.plan-top{flex-wrap:nowrap}.plan-desc{font-size:14px}}
 @media(max-width:360px){.scope-grid h3{font-size:18px}.hero h1{font-size:10.2vw}.hero .eyebrow{font-size:8px}.plan-label{font-size:7px}.eyebrow{font-size:10px}.closing h2{font-size:8.6vw}}
+
+/* SVG arrows keep UI icons independent from font glyph coverage. */
+.icon-arrow{display:inline-block;width:20px;height:20px;flex:none;vertical-align:middle}
+.header-link .icon-arrow{margin-left:14px;width:19px;height:19px}
+.round-link .icon-arrow{width:24px;height:24px}
+.wayfinder .icon-arrow,footer a .icon-arrow{width:14px;height:14px;margin-left:6px}
+.button .icon-arrow{width:22px;height:22px}
+@media(max-width:700px){.header-link .icon-arrow{margin-left:6px;width:16px;height:16px}}
+
+/* Align comparison baselines when one description uses an extra line. */
+@media(min-width:701px){.plan-desc{min-height:72px}}
