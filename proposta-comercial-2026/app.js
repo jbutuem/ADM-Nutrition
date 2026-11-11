@@ -1,8 +1,8 @@
-/* Commercial values and billing schedule approved by the owner on 2026-10-29. */
+/* Commercial values and billing schedule approved by the owner on 2026-11-11. */
 const proposal = Object.freeze({
   status: 'client-ready',
-  base: { hours: 65, price: 8690, general: 50, video: 15, splitConfirmed: true },
-  expanded: { hours: 100, price: 13350, general: 80, video: 20, confirmed: true },
+  base: { hours: 50, price: 7123, general: 50, video: 0, splitConfirmed: true },
+  expanded: { hours: 80, price: 11225, general: 80, video: 0, confirmed: true },
   additional2027: { general: 108, video: 152 },
   contact: 'j.butuem@gmail.com'
 });
