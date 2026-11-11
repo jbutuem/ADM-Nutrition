@@ -37,3 +37,6 @@ h3{font-weight:600;letter-spacing:-.04em}
 
 /* Align comparison baselines when one description uses an extra line. */
 @media(min-width:701px){.plan-desc{min-height:72px}}
+
+/* Give detailed service descriptions a comfortable reading width on phones. */
+@media(max-width:480px){.scope-grid{grid-template-columns:1fr}.scope-grid article,.scope-grid article:nth-child(even){padding:25px 0!important;border-left:0}.scope-grid article:nth-child(3){border-bottom:1px solid #625b5b}.scope-grid article:last-child{border-bottom:0}.scope-grid h3{font-size:24px;margin-top:18px}.scope-grid p{font-size:14px;margin-bottom:22px}.scope-grid .tag{font-size:9px}.allocation p{flex-wrap:wrap;gap:8px 14px}.hero-bottom p{font-size:12px}}
